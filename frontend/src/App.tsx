@@ -17,7 +17,6 @@ function App() {
   const [todos, setTodos] = useState<ITodo[]>([]);
   const API_URL = 'http://localhost:8080/todos';
 
-  // All your functions (useEffect, handleAddTodo, etc.) remain exactly the same...
   useEffect(() => {
     const fetchTodos = async () => {
       try {
@@ -77,7 +76,6 @@ function App() {
   };
 
   return (
-    // THE CHANGE IS ON THIS LINE
     <div className="bg-black text-white min-h-screen w-full relative overflow-x-hidden flex flex-col justify-center items-center">
       <BackgroundBeamsDemo />
       <div className="relative z-10">

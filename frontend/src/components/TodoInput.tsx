@@ -22,9 +22,9 @@ export function TodoInput({ onAddTodo }: TodoInputProps): JSX.Element {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!task.trim()) return; // prevent empty todos
+    if (!task.trim()) return;
     onAddTodo(task.trim());
-    setTask(""); // reset after submit
+    setTask("");
   };
 
   return (

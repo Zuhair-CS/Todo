@@ -1,4 +1,3 @@
-// backend/controllers/todoController.js
 const Todo = require('../models/Todo');
 
 //get
