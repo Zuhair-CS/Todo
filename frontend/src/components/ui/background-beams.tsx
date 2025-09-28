@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react"; // Import useState
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { cn } from "../../lib/utils";
 
 // NEW: Create a self-contained, memoized component for each beam
