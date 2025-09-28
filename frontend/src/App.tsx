@@ -1,10 +1,11 @@
 import './App.css';
-import { BackgroundBeamsDemo } from './components/BackgroundBeamsDemo';
 import { SpotlightTypewriterDemo } from './components/SpotlightTypewriter';
 import { TodoInput } from './components/TodoInput';
 import { useState, useEffect } from 'react';
+import { AnimatePresence } from 'motion/react';
+import { TodoItem } from './components/TodoItem';
+import { BackgroundBeamsDemo } from './components/BackgroundBeamsDemo';
 
-// Define an interface for the Todo object to match your backend model
 interface ITodo {
   _id: string;
   task: string;
@@ -16,7 +17,7 @@ function App() {
   const [todos, setTodos] = useState<ITodo[]>([]);
   const API_URL = 'http://localhost:8080/todos';
 
-  // 1. Fetch todos from the backend when the component loads
+  // All your functions (useEffect, handleAddTodo, etc.) remain exactly the same...
   useEffect(() => {
     const fetchTodos = async () => {
       try {
@@ -29,23 +30,18 @@ function App() {
         console.error('Error fetching todos:', error);
       }
     };
-
     fetchTodos();
-  }, []); // Empty array ensures this runs only once on mount
+  }, []);
 
-  // 2. Update handleAddTodo to send the new task to the backend
   const handleAddTodo = async (task: string) => {
     try {
       const response = await fetch(API_URL, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ task }),
       });
       const data = await response.json();
       if (data.success) {
-        // Add the new todo from the backend response to our state
         setTodos((prev) => [...prev, data.data]);
       }
     } catch (error) {
@@ -53,24 +49,55 @@ function App() {
     }
   };
 
+  const handleDeleteTodo = async (id: string) => {
+    try {
+      await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+      setTodos(todos.filter((todo) => todo._id !== id));
+    } catch (error) {
+      console.error('Error deleting todo:', error);
+    }
+  };
+
+  const handleUpdateTodo = async (id: string, updatedData: { task?: string; completed?: boolean }) => {
+    try {
+      const response = await fetch(`${API_URL}/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedData),
+      });
+      const data = await response.json();
+      if (data.success) {
+        setTodos(
+          todos.map((todo) => (todo._id === id ? data.data : todo))
+        );
+      }
+    } catch (error) {
+      console.error('Error updating todo:', error);
+    }
+  };
+
   return (
-    // Add `relative` to make this the positioning parent for the Spotlight
-    <div className="overflow-x-hidden overflow-y-hidden bg-black text-white min-h-screen w-full relative">
+    // THE CHANGE IS ON THIS LINE
+    <div className="bg-black text-white min-h-screen w-full relative overflow-x-hidden flex flex-col justify-center items-center">
       <BackgroundBeamsDemo />
-      {/* Wrap all content in a div to place it above the spotlight */}
       <div className="relative z-10">
         <SpotlightTypewriterDemo />
         <TodoInput onAddTodo={handleAddTodo} />
-
-        <div className="max-w-xl mx-auto mt-8">
-          <h2 className="text-2xl font-bold text-center mb-4">My Tasks</h2>
-          <ul className="list-disc pl-5 space-y-2">
-            {todos.map((todo) => (
-              <li key={todo._id} className="text-lg">
-                {todo.task}
-              </li>
-            ))}
-          </ul>
+        
+        <div className="max-w-xl mx-auto mt-8 p-4">
+          <h2 className="text-2xl font-bold text-center mb-6">My Tasks</h2>
+          <div className="space-y-4">
+            <AnimatePresence>
+              {todos.map((todo) => (
+                <TodoItem
+                  key={todo._id}
+                  todo={todo}
+                  onDelete={handleDeleteTodo}
+                  onUpdate={handleUpdateTodo}
+                />
+              ))}
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </div>

@@ -13,10 +13,7 @@ export function TodoInput({ onAddTodo }: TodoInputProps): JSX.Element {
 
   const placeholders = [
     "Add a new task...",
-    "Write a blog post draft",
-    "Fix the login bug",
-    "Buy groceries",
-    "Finish your MERN assignment",
+    "Add one more task to your day...",
   ];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,9 +29,6 @@ export function TodoInput({ onAddTodo }: TodoInputProps): JSX.Element {
 
   return (
     <div className="flex flex-col justify-center items-center px-4">
-      <h2 className="mb-6 text-xl text-center sm:text-3xl dark:text-white text-black">
-        What do you want to get done?
-      </h2>
       <PlaceholdersAndVanishInput
         placeholders={placeholders}
         onChange={handleChange}

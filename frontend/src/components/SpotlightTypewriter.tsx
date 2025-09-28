@@ -9,11 +9,11 @@ interface Word {
 
 export function SpotlightTypewriterDemo(): JSX.Element {
   const words: Word[] = [
-    { text: "Build",className: "text-gray-500 dark:text-gray-500" },
-    { text: "awesome",className: "text-gray-500 dark:text-gray-500" },
-    { text: "apps",className: "text-gray-500 dark:text-gray-500" },
-    { text: "with",className: "text-gray-500 dark:text-gray-500" },
-    { text: "Aceternity.", className: "text-blue-500 dark:text-blue-500" },
+    { text: "One",className: "text-gray-500 dark:text-gray-500" },
+    { text: "Task",className: "text-gray-500 dark:text-gray-500" },
+    { text: "At",className: "text-gray-500 dark:text-gray-500" },
+    { text: "a",className: "text-gray-500 dark:text-gray-500" },
+    { text: "Time.", className: "text-blue-500 dark:text-blue-500" },
   ];
 
   return (

@@ -1,0 +1,21 @@
+.gradient-button {
+  background: linear-gradient(100deg, #f7971e, #ffd200, #f7971e);
+  background-size: 200% auto;
+  transition: background-position 0.4s cubic-bezier(.25, .8, .25, 1);
+  border: none;
+}
+
+.gradient-button:hover {
+  background-position: right center;
+}
+
+.gradient-button-variant {
+  background: linear-gradient(100deg, #2a2a72, #009ffd, #2a2a72);
+  background-size: 200% auto;
+  transition: background-position 0.4s cubic-bezier(.25, .8, .25, 1);
+  border: none;
+}
+
+.gradient-button-variant:hover {
+  background-position: right center;
+}
