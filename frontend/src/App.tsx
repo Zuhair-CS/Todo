@@ -15,7 +15,7 @@ interface ITodo {
 
 function App() {
   const [todos, setTodos] = useState<ITodo[]>([]);
-  const API_URL = 'http://localhost:8080/todos';
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/todos';
 
   useEffect(() => {
     const fetchTodos = async () => {
